@@ -1,0 +1,18 @@
+[package]
+name = "native"
+version = "0.1.0"
+authors = ["Hansihe <hansihe@hansihe.com>"]
+
+[lib]
+name = "rust_nif"
+path = "src/lib.rs"
+crate_type = ["dylib"]
+
+[dependencies]
+rustler = ">=0.3"
+rustler_codegen = ">=0.3"
+
+#[dependencies.rustler]
+#path = "../../rustler/"
+#[dependencies.rustler_codegen]
+#path = "../../rustler/rustler_codegen/"
