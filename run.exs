@@ -16,7 +16,7 @@ defmodule NativeTest do
     rescue
       a in ErlangError -> IO.inspect a
     end
-    IO.inspect(is_binary(IO.inspect(struct_argument(%TestStruct{})).__struct__))
+    IO.inspect struct_argument(%TestStruct{})
 
     nil
   end

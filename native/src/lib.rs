@@ -4,10 +4,18 @@
 extern crate rustler;
 use rustler::{NifEnv, NifTerm, NifError, NifDecoder, NifEncoder, get_atom_init};
 
-rustler_export_nifs!("Elixir.NativeTest", [
-                     ("add", 2, add), 
-                     ("panic_test", 0, panic_test),
-                     ("struct_argument", 1, struct_argument)]);
+rustler_export_nifs!(
+    "Elixir.NativeTest", 
+    [("add", 2, add), 
+     ("panic_test", 0, panic_test),
+     ("struct_argument", 1, struct_argument)],
+    Some(on_load)
+);
+
+fn on_load(env: &NifEnv, load_info: NifTerm) -> bool {
+    println!("Runs on library load");
+    true
+}
 
 fn add<'a>(env: &'a NifEnv, args: &Vec<NifTerm>) -> Result<NifTerm<'a>, NifError> {
     let num1: i32 = try!(NifDecoder::decode(args[0], env));
