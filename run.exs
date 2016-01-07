@@ -11,8 +11,12 @@ defmodule NativeTest do
     :ok = :erlang.load_nif(path, 0)
 
     IO.inspect add(5, 2)
-    IO.inspect panic_test()
-    IO.inspect struct_argument(%TestStruct{})
+    try do
+      panic_test()
+    rescue
+      a in ErlangError -> IO.inspect a
+    end
+    IO.inspect(is_binary(IO.inspect(struct_argument(%TestStruct{})).__struct__))
 
     nil
   end
