@@ -18,10 +18,15 @@ defmodule NativeTest do
     end
     IO.inspect struct_argument(%TestStruct{})
 
+    thing = make_resource_struct
+    IO.inspect read_resource_struct(thing)
+
     nil
   end
 
   def add(_a, _b), do: exit(@not_loaded)
   def panic_test, do: exit(@not_loaded)
   def struct_argument(_struct = %TestStruct{}), do: exit(@not_loaded)
+  def make_resource_struct, do: exit(@not_loaded)
+  def read_resource_struct(res), do: exit(@not_loaded)
 end
