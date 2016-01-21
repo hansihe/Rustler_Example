@@ -12,13 +12,20 @@ rustler_export_nifs!(
      ("panic_test", 0, panic_test),
      ("struct_argument", 1, struct_argument),
      ("make_resource_struct", 0, make_resource_struct),
-     ("read_resource_struct", 1, read_resource_struct)],
+     ("read_resource_struct", 1, read_resource_struct),
+     ("string_test", 0, string_test)],
     Some(on_load)
 );
 
 #[NifResource]
 struct ResourceStructTest {
     test_field: i32
+}
+
+#[NifTuple]
+struct TestTuple {
+    test_field: i32,
+    woohoo: i32
 }
 
 fn on_load(env: &NifEnv, load_info: NifTerm) -> bool {
@@ -68,4 +75,8 @@ fn read_resource_struct<'a>(env: &'a NifEnv, args: &Vec<NifTerm>) -> Result<NifT
     let test: ResourceTypeHolder<ResourceStructTest> = try!(NifDecoder::decode(args[0], env));
     println!("WOOOO: {:?}", test.read().unwrap().test_field);
     Ok(12.encode(env))
+}
+
+fn string_test<'a>(env: &'a NifEnv, args: &Vec<NifTerm>) -> Result<NifTerm<'a>, NifError> {
+    Ok("A static string".encode(env))
 }

@@ -9,10 +9,10 @@ path = "src/lib.rs"
 crate_type = ["dylib"]
 
 [dependencies]
-rustler = ">=0.5"
-rustler_codegen = ">=0.5"
+#rustler = ">=0.5"
+#rustler_codegen = ">=0.5"
 
-#[dependencies.rustler]
-#path = "../../rustler/"
-#[dependencies.rustler_codegen]
-#path = "../../rustler/rustler_codegen/"
+[dependencies.rustler]
+path = "../../rustler/"
+[dependencies.rustler_codegen]
+path = "../../rustler/rustler_codegen/"
