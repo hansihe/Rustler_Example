@@ -1,0 +1,53 @@
+[root]
+name = "native"
+version = "0.1.0"
+dependencies = [
+ "rustler 0.5.0",
+ "rustler_codegen 0.5.0",
+]
+
+[[package]]
+name = "aster"
+version = "0.9.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+
+[[package]]
+name = "easy-plugin"
+version = "0.2.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+
+[[package]]
+name = "lazy_static"
+version = "0.1.15"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+
+[[package]]
+name = "libc"
+version = "0.2.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+
+[[package]]
+name = "ruster_unsafe"
+version = "0.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+dependencies = [
+ "libc 0.2.4 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
+name = "rustler"
+version = "0.5.0"
+dependencies = [
+ "lazy_static 0.1.15 (registry+https://github.com/rust-lang/crates.io-index)",
+ "libc 0.2.4 (registry+https://github.com/rust-lang/crates.io-index)",
+ "ruster_unsafe 0.2.0 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
+name = "rustler_codegen"
+version = "0.5.0"
+dependencies = [
+ "aster 0.9.3 (registry+https://github.com/rust-lang/crates.io-index)",
+ "easy-plugin 0.2.4 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+

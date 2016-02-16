@@ -3,8 +3,8 @@
 
 #[macro_use]
 extern crate rustler;
-use rustler::{NifEnv, NifTerm, NifError, NifDecoder, NifEncoder, get_atom_init};
-use rustler::resource::ResourceTypeHolder;
+use rustler::{NifEnv, NifTerm, NifError, NifDecoder, NifEncoder};
+use rustler::resource::ResourceCell;
 
 rustler_export_nifs!(
     "Elixir.NativeTest", 
@@ -35,8 +35,8 @@ fn on_load(env: &NifEnv, load_info: NifTerm) -> bool {
 }
 
 fn add<'a>(env: &'a NifEnv, args: &Vec<NifTerm>) -> Result<NifTerm<'a>, NifError> {
-    let num1: i32 = try!(NifDecoder::decode(args[0], env));
-    let num2: i32 = try!(NifDecoder::decode(args[0], env));
+    let num1: i32 = try!(args[0].decode());
+    let num2: i32 = try!(args[1].decode());
     Ok((num1 + num2).encode(env))
 }
 
@@ -60,19 +60,19 @@ struct TestStruct<'a> {
 }
 
 fn struct_argument<'a>(env: &'a NifEnv, args: &Vec<NifTerm>) -> Result<NifTerm<'a>, NifError> {
-    let test_struct: TestStruct = try!(NifDecoder::decode(args[0], env));
+    let test_struct: TestStruct = try!(args[0].decode());
     println!("Hello from rust! Struct parameter is: {:?}", test_struct);
     Ok(test_struct.encode(env))
 }
 
 fn make_resource_struct<'a>(env: &'a NifEnv, args: &Vec<NifTerm>) -> Result<NifTerm<'a>, NifError> {
-    let test = ResourceTypeHolder::new(env, ResourceStructTest {
+    let test = ResourceCell::new(ResourceStructTest {
         test_field: 523
     });
     Ok(test.encode(env))
 }
 fn read_resource_struct<'a>(env: &'a NifEnv, args: &Vec<NifTerm>) -> Result<NifTerm<'a>, NifError> {
-    let test: ResourceTypeHolder<ResourceStructTest> = try!(NifDecoder::decode(args[0], env));
+    let test: ResourceCell<ResourceStructTest> = try!(args[0].decode());
     println!("WOOOO: {:?}", test.read().unwrap().test_field);
     Ok(12.encode(env))
 }

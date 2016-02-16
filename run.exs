@@ -23,7 +23,7 @@ defmodule NativeTest do
 
     IO.inspect string_test
 
-    nil
+    :ok
   end
 
   def add(_a, _b), do: exit(@not_loaded)
